@@ -1,4 +1,11 @@
 # Pytorch Implementation - SRIT
+
+[Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334), [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
+
+![iccv_fig1](https://user-images.githubusercontent.com/54341727/133568248-d9d83417-cd6b-404d-a408-50254940c3c4.png)
+
+
+
 ## Requirements
 Install the dependencies:
 ```
