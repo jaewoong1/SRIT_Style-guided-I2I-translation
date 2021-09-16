@@ -46,5 +46,5 @@ python main.py --mode sample --num_domain 2 --w_hpf 0 --train_img_dir ./data/Yos
 ```
 
 
-##Reference
+## Reference
 [1] Choi, Yunjey, et al. "Stargan v2: Diverse image synthesis for multiple domains." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
