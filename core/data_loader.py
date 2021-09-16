@@ -13,12 +13,10 @@ from torch.utils.data.sampler import WeightedRandomSampler
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 
-
 def listdir(dname):
     fnames = list(chain(*[list(Path(dname).rglob('*.' + ext))
                           for ext in ['png', 'jpg', 'jpeg', 'JPG']]))
     return fnames
-
 
 class DefaultDataset(data.Dataset):
     def __init__(self, root, transform=None):

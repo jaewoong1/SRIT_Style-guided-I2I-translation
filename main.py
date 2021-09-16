@@ -59,11 +59,9 @@ def main(args):
                                             shuffle=True,
                                             num_workers=args.num_workers))
         solver.sample(loaders)
+
     elif args.mode == 'eval':
         solver.evaluate()
-    elif args.mode == 'align':
-        from core.wing import align_faces
-        align_faces(args, args.inp_dir, args.out_dir)
     else:
         raise NotImplementedError
 
@@ -74,7 +72,7 @@ if __name__ == '__main__':
     # model arguments
     parser.add_argument('--img_size', type=int, default=256,
                         help='Image resolution')
-    parser.add_argument('--num_domains', type=int, default=2,
+    parser.add_argument('--num_domains', type=int, default=3,
                         help='Number of domains')
     parser.add_argument('--latent_dim', type=int, default=16,
                         help='Latent vector dimension')
@@ -82,7 +80,7 @@ if __name__ == '__main__':
                         help='Hidden dimension of mapping network')
     parser.add_argument('--style_dim', type=int, default=64,
                         help='Style code dimension')
-    parser.add_argument('--gpu', type=int, default=0, help='gpu')
+    parser.add_argument('--gpu', type=int, default=0, help='number of gpu to use')
     # weight for objective functions
     parser.add_argument('--lambda_reg', type=float, default=1,
                         help='Weight for R1 regularization')
@@ -92,8 +90,6 @@ if __name__ == '__main__':
                         help='Weight for style reconstruction loss')
     parser.add_argument('--lambda_ds', type=float, default=1,
                         help='Weight for diversity sensitive loss')
-    parser.add_argument('--lambda_SGD', type=float, default=0.1,
-                        help='Weight for Style guided discriminator loss')
     parser.add_argument('--lambda_NPMI', type=float, default=0.1,
                         help='Weight for NPMI loss')
     parser.add_argument('--eps', type=float, default=0.7,
@@ -106,7 +102,7 @@ if __name__ == '__main__':
                         help='Importance weighting')
     parser.add_argument('--SGD', type=int, default=1,
                         help='Style guided discriminator')
-    parser.add_argument('--w_hpf', type=float, default=1,
+    parser.add_argument('--w_hpf', type=float, default=0,
                         help='weight for high-pass filtering')
 
     # training arguments
@@ -116,7 +112,7 @@ if __name__ == '__main__':
                         help='Number of total iterations')
     parser.add_argument('--resume_iter', type=int, default=0,
                         help='Iterations to resume training/testing')
-    parser.add_argument('--batch_size', type=int, default=4,
+    parser.add_argument('--batch_size', type=int, default=8,
                         help='Batch size for training')
     parser.add_argument('--val_batch_size', type=int, default=10,
                         help='Batch size for validation')
@@ -136,7 +132,7 @@ if __name__ == '__main__':
 
     # misc
     parser.add_argument('--mode', type=str, default='train',
-                        choices=['train', 'sample', 'eval', 'align'],
+                        choices=['train', 'sample', 'eval'],
                         help='This argument is used in solver')
     parser.add_argument('--num_workers', type=int, default=4,
                         help='Number of workers used in DataLoader')
@@ -148,30 +144,26 @@ if __name__ == '__main__':
     #summer2winter_yosemite
 
     # directory for training
-    parser.add_argument('--train_img_dir', type=str, default='data/celeba_hq/train',
+    parser.add_argument('--train_img_dir', type=str, default='data/afhq/train',
                         help='Directory containing training images')
-    parser.add_argument('--val_img_dir', type=str, default='data/celeba_hq/val',
+    parser.add_argument('--val_img_dir', type=str, default='data/afhq/val',
                         help='Directory containing validation images')
-    parser.add_argument('--sample_dir', type=str, default='expr/samples/Cele1',
+    parser.add_argument('--sample_dir', type=str, default='expr/samples/test',
                         help='Directory for saving generated images')
-    parser.add_argument('--checkpoint_dir', type=str, default='expr/checkpoints/Cele1',
+    parser.add_argument('--checkpoint_dir', type=str, default='expr/checkpoints/test',
                         help='Directory for saving network checkpoints')
 
     # directory for calculating metrics
-    parser.add_argument('--eval_dir', type=str, default='expr/eval/Cele1',
+    parser.add_argument('--eval_dir', type=str, default='expr/eval/test',
                         help='Directory for saving metrics, i.e., FID and LPIPS')
 
     # directory for testing
     parser.add_argument('--result_dir', type=str, default='expr/results',
                         help='Directory for saving generated images and videos')
-    parser.add_argument('--src_dir', type=str, default='assets/representative/yose/src',
+    parser.add_argument('--src_dir', type=str, default='assets/representative/afhq/src',
                         help='Directory containing input source images')
-    parser.add_argument('--ref_dir', type=str, default='assets/representative/yose/ref',
+    parser.add_argument('--ref_dir', type=str, default='assets/representative/afhq/ref',
                         help='Directory containing input reference images')
-    parser.add_argument('--inp_dir', type=str, default='assets/representative/custom/female',
-                        help='input directory when aligning faces')
-    parser.add_argument('--out_dir', type=str, default='assets/representative/afhq/src/female',
-                        help='output directory when aligning faces')
 
     # face alignment
     parser.add_argument('--wing_path', type=str, default='expr/checkpoints/wing.ckpt')

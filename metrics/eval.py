@@ -1,13 +1,3 @@
-"""
-StarGAN v2
-Copyright (c) 2020-present NAVER Corp.
-
-This work is licensed under the Creative Commons Attribution-NonCommercial
-4.0 International License. To view a copy of this license, visit
-http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to
-Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-"""
-
 import os
 import shutil
 from collections import OrderedDict
@@ -34,8 +24,6 @@ def calculate_metrics(nets_d, nets, args, step, mode):
     print('Number of domains: %d' % num_domains)
 
     lpips_dict = OrderedDict()
-
-    count = 0
 
     for trg_idx, trg_domain in enumerate(domains):
         src_domains = [x for x in domains if x != trg_domain]
@@ -86,16 +74,6 @@ def calculate_metrics(nets_d, nets, args, step, mode):
                         s_trg = nets.style_encoder(x_ref, y_trg)
 
                     x_fake = nets.generator(x_src, s_trg, masks=masks)
-                    a = 0
-                    b = 0
-                    p = torch.mean(torch.sigmoid(nets_d.discriminator(x_fake, y_trg)))   #################################
-                    q = torch.mean(torch.sigmoid(nets_d.discriminator(x_src, 1-y_trg)))
-                    a += p
-                    b += q
-                    f = open(args.eval_dir + "/" + "score_disc.txt", 'a')
-                    f.write('%f %f \n' % (a, b))
-                    f.close()
-
                     group_of_images.append(x_fake)
 
                     # save generated images to calculate FID later
@@ -118,10 +96,6 @@ def calculate_metrics(nets_d, nets, args, step, mode):
             del loader_ref
             del iter_ref
 
-
-
-
-    # calculate the average LPIPS for all tasks
     lpips_mean = 0
     for _, value in lpips_dict.items():
         lpips_mean += value / len(lpips_dict)

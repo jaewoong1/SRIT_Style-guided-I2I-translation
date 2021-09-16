@@ -7,7 +7,6 @@ from munch import Munch
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 from core.model import build_model
 from core.checkpoint import CheckpointIO
 from core.data_loader import InputFetcher
@@ -43,12 +42,10 @@ class Solver(nn.Module):
                 CheckpointIO(ospj(args.checkpoint_dir, '{:06d}_nets_ema.ckpt'), **self.nets_ema),
                 CheckpointIO(ospj(args.checkpoint_dir, '{:06d}_optims.ckpt'), **self.optims)]
         else:
-            self.ckptios = [CheckpointIO(ospj(args.checkpoint_dir, '100000_nets_ema.ckpt'), **self.nets_ema)]
-#                            CheckpointIO(ospj(args.checkpoint_dir, '100000_nets.ckpt'), **self.nets)]
+            self.ckptios = [CheckpointIO(ospj(args.checkpoint_dir, '{:06d}}_nets_ema.ckpt'), **self.nets_ema)]
 
         self.to(self.device)
         for name, network in self.named_children():
-            # Do not initialize the FAN parameters
             if ('ema' not in name) and ('fan' not in name):
                 print('Initializing %s...' % name)
                 network.apply(utils.he_init)
@@ -70,7 +67,6 @@ class Solver(nn.Module):
         nets = self.nets
         nets_ema = self.nets_ema
         optims = self.optims
-
 
         fetcher = InputFetcher(loaders.src, loaders.ref, args.latent_dim, 'train')
         fetcher_val = InputFetcher(loaders.val, None, args.latent_dim, 'val')
@@ -95,7 +91,6 @@ class Solver(nn.Module):
 
             masks = nets.fan.get_heatmap(x_real) if args.w_hpf > 0 else None
 
-            # train the discriminator
             d_loss, d_losses_latent = compute_d_loss(
                 nets, args, x_real, y_org, y_trg, z_trg=z_trg, masks=masks)
             self._reset_grad()
@@ -108,7 +103,6 @@ class Solver(nn.Module):
             d_loss.backward()
             optims.discriminator.step()
 
-            # train the generator
             g_loss, g_losses_latent = compute_g_loss(
                 nets, args, x_real, y_org, y_trg, z_trgs=[z_trg, z_trg2], masks=masks)
             self._reset_grad()
@@ -123,16 +117,13 @@ class Solver(nn.Module):
             g_loss.backward()
             optims.generator.step()
 
-            # compute moving average of network parameters
             moving_average(nets.generator, nets_ema.generator, beta=0.999)
             moving_average(nets.mapping_network, nets_ema.mapping_network, beta=0.999)
             moving_average(nets.style_encoder, nets_ema.style_encoder, beta=0.999)
 
-            # decay weight for diversity sensitive loss
             if args.lambda_ds > 0:
                 args.lambda_ds -= (initial_lambda_ds / args.ds_iter)
 
-            # print out log info
             if (i+1) % args.print_every == 0:
                 elapsed = time.time() - start_time
                 elapsed = str(datetime.timedelta(seconds=elapsed))[:-7]
@@ -174,10 +165,6 @@ class Solver(nn.Module):
         print('Working on {}...'.format(fname))
         utils.translate_using_reference(nets_ema, args, src.x, ref.x, ref.y, fname)
 
-        fname = ospj(args.result_dir, 'video_ref.mp4')
-        print('Working on {}...'.format(fname))
-        utils.video_ref(nets_ema, args, src.x, ref.x, ref.y, fname)
-
     @torch.no_grad()
     def evaluate(self):
         args = self.args
@@ -194,7 +181,7 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
     # with real images
     x_real.requires_grad_()
     out = nets.discriminator(x_real, y_org)
-    loss_reg = r1_reg(out, x_real)
+    loss_reg = reg(out, x_real)
 
     # with fake images
     with torch.no_grad():
@@ -206,12 +193,9 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
         x_fake = nets.generator(x_real, s_trg, masks=masks)
     out2 = nets.discriminator(x_fake, y_trg)
 
-    if args.SGD==1:
+    if args.SGD == 1:
         count = 0
-        r1 = 0
-        r2 = 0
-        r3 = 0
-        r4 = 0
+        r1, r2, r3, r4 = 0
         if z_trg is not None:
             out = nets.discriminator(x_real, y_org)
             loss_real = adv_loss(out, 1)
@@ -220,16 +204,14 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
             out = nets.discriminator(x_ref, y_trg)
             out3 = nets.discriminator(x_real, y_org)
             for i in range(args.batch_size):
-                if y_trg[i] != 2:
-                    count += 1
-                    r1 += adv_loss(out[i:i+1]-out2[i:i+1], 1)
-                    r3 += adv_loss(out3[i:i + 1] - out2[i:i + 1], 1)
-                    r2 += adv_loss(out2[i:i+1]-out[i:i+1], 0)
-                    r4 += adv_loss(out2[i:i + 1] - out3[i:i + 1], 0)
+                count += 1
+                r1 += adv_loss(out[i:i+1]-out2[i:i+1], 1)
+                r3 += adv_loss(out3[i:i + 1] - out2[i:i + 1], 1)
+                r2 += adv_loss(out2[i:i+1]-out[i:i+1], 0)
+                r4 += adv_loss(out2[i:i + 1] - out3[i:i + 1], 0)
 
-            if count > 1 :
-                r1 /= count
-                r2 /= count
+            r1 /= count
+            r2 /= count
             if r1 != 0:
                 loss_real = r1 + r3
                 loss_fake = r2 + r4
@@ -359,7 +341,7 @@ def adv_loss(logits, target):
     return loss
 
 
-def r1_reg(d_out, x_in):
+def reg(d_out, x_in):
     batch_size = x_in.size(0)
     grad_dout = torch.autograd.grad(
         outputs=d_out.sum(), inputs=x_in,
