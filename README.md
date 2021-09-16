@@ -22,11 +22,11 @@ pip install tqdm
 ## Training dataset
 Put dataset folder in the following location. `./data/`
 
->Click to download [CelebA-HQ](www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0)
+>Click to download [CelebA-HQ](www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0) [1]
 
->Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0) [1]
+>Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0) [2]
 
->Click to download [Yosemite](https://www.kaggle.com/balraj98/summer2winter-yosemite/download)
+>Click to download [Yosemite](https://www.kaggle.com/balraj98/summer2winter-yosemite/download) [3]
 
 
 ## Run 
@@ -47,4 +47,9 @@ python main.py --mode sample --num_domain 2 --w_hpf 0 --train_img_dir ./data/Yos
 
 
 ## Reference
-[1] Choi, Yunjey, et al. "Stargan v2: Diverse image synthesis for multiple domains." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+[1] Karras, Tero, et al. "Progressive growing of gans for improved quality, stability, and variation." arXiv preprint arXiv:1710.10196 (2017).
+
+[2] Choi, Yunjey, et al. "Stargan v2: Diverse image synthesis for multiple domains." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
+
+[3] Isola, Phillip, et al. "Image-to-image translation with conditional adversarial networks." Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+
