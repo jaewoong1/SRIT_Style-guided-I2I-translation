@@ -24,7 +24,7 @@ Put dataset folder in the following location. `./data/`
 
 >Click to download [CelebA-HQ](www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0)
 
->Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0)
+>Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0) [1]
 
 >Click to download [Yosemite](https://www.kaggle.com/balraj98/summer2winter-yosemite/download)
 
@@ -44,3 +44,7 @@ python main.py --mode sample --num_domain 2 --w_hpf 1 --train_img_dir ./data/Cel
 ```
 python main.py --mode sample --num_domain 2 --w_hpf 0 --train_img_dir ./data/Yosemite/train --val_img_dir ./data/Yosemite/val 
 ```
+
+
+##Reference
+[1] Choi, Yunjey, et al. "Stargan v2: Diverse image synthesis for multiple domains." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.
