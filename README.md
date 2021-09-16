@@ -1,7 +1,41 @@
 # Pytorch Implementation - SRIT
-**SRIT : Style-Guided and Disentangled Representation for Robust Image-to-Image Translation**<br>
-[Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334),  [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
+## Requirements
+Install the dependencies:
+```
+bash
+conda create -n SyRaGAN python=3.6.7
+conda activate SyRaGAN
+conda install -y pytorch=1.4.0 torchvision=0.5.0 cudatoolkit=10.0 -c pytorch
+conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
+pip install opencv-python==4.1.2.30 ffmpeg-python==0.2.0 scikit-image==0.16.2
+pip install pillow==7.0.0 scipy==1.2.1 tqdm==4.43.0 munch==2.5.0
+pip install tqdm
+```
 
-![iccv_fig1](https://user-images.githubusercontent.com/54341727/133353419-b74fd96b-203d-48c9-b454-03e437255384.png)
 
-Coming Soon
+## Pretrained model
+>Click to download [Wing](https://www.dropbox.com/s/tjxpypwpt38926e/wing.ckpt?dl=0) : Put checkpoint file in the following location. `./expr/checkpoints/`
+
+>Click to download [pretrained SRIT](https://drive.google.com/drive/folders/1r8bwHYlce-PsRggmLj4NWKuQP9fTIXhT?usp=sharing)
+
+
+## Training dataset
+Put dataset folder in the following location. `./data/`
+
+>Click to download [CelebA-HQ](www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0)
+
+>Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0)
+
+>Click to download [Yosemite](https://www.kaggle.com/balraj98/summer2winter-yosemite/download)
+
+
+## Run 
+>I2I translation for AFHQ
+```
+python main.py --mode sample --num_domain 3 --w_hpf 0 --train_img_dir ./data/afhq/train --val_img_dir ./data/afhq/val 
+```
+
+>I2I translation for CelebA-HQ
+```
+python main.py --mode sample --num_domain 2 --w_hpf 1 --train_img_dir ./data/CelebA-HQ/train --val_img_dir ./data/CelebA-HQ/val 
+```
