@@ -41,12 +41,12 @@ Put dataset folder in the following location. `./data/`
 ## Run 
 >I2I translation for AFHQ
 ```
-python main.py --mode sample --num_domain 3 --w_hpf 0 --train_img_dir ./data/afhq/train --val_img_dir ./data/afhq/val 
+python main.py --mode sample --num_domain 3 --w_hpf 0 --train_img_dir ./data/afhq/train --val_img_dir ./data/afhq/val
 ```
 
 >I2I translation for CelebA-HQ
 ```
-python main.py --mode sample --num_domain 2 --w_hpf 1 --train_img_dir ./data/CelebA-HQ/train --val_img_dir ./data/CelebA-HQ/val 
+python main.py --mode sample --num_domain 2 --w_hpf 1 --train_img_dir ./data/CelebA-HQ/train --val_img_dir ./data/CelebA-HQ/val
 ```
 
 >I2I translation for Yosemite
