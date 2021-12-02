@@ -5,7 +5,7 @@ On this repository, SRIT's code and instructions for I2I translation are explain
 [Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334), [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
 
 ![iccv_fig1](https://user-images.githubusercontent.com/54341727/133568248-d9d83417-cd6b-404d-a408-50254940c3c4.png)
-
+![decision](https://user-images.githubusercontent.com/54341727/144345313-60725a60-94b5-4f69-8a30-b6916a08e11a.png)
 
 
 ## Requirements
