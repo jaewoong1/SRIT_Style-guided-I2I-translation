@@ -14,8 +14,8 @@ Install the dependencies:
 bash
 pip install -r requirements.txt
 
-conda create -n SyRaGAN python=3.6.7
-conda activate SyRaGAN
+conda create -n SRIT python=3.6.7
+conda activate SRIT
 conda install -y pytorch=1.4.0 torchvision=0.5.0 cudatoolkit=10.0 -c pytorch
 conda install x264=='1!152.20180717' ffmpeg=4.0.2 -c conda-forge
 pip install opencv-python==4.1.2.30 ffmpeg-python==0.2.0 scikit-image==0.16.2
