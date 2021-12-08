@@ -194,7 +194,7 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
 
     if args.SGD == 1:
         count = 0
-        r1, r2, r3, r4 = 0
+        r1 = r2 = r3 = r4 = 0
         if z_trg is not None:
             out = nets.discriminator(x_real, y_org)
             loss_real = adv_loss(out, 1)
