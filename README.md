@@ -56,6 +56,10 @@ python main.py --mode sample --num_domain 2 --w_hpf 1 --train_img_dir ./data/Cel
 python main.py --mode sample --num_domain 2 --w_hpf 0 --train_img_dir ./data/Yosemite/train --val_img_dir ./data/Yosemite/val 
 ```
 
+>If you want to run the code on different sized (ex: 512) images, add the following code
+```
+--img_size 512
+```
 
 ## Reference
 [1] Karras, Tero, et al. "Progressive growing of gans for improved quality, stability, and variation." arXiv preprint arXiv:1710.10196 (2017).
