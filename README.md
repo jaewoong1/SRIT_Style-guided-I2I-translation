@@ -2,6 +2,7 @@
 > AAAI 2022 accepted!
 
 > This repository includes the official project for the paper:
+
 > [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
 
 Appendix can be found here [[Appedix]]()
