@@ -275,27 +275,18 @@ def compute_g_loss(nets, args, x_real, y_org, y_trg, z_trgs=None, x_refs=None, m
         if y_trg[i] != 2:
             count += 1
             loss_NPMI += mutual_info(s_trg[i:i+1,:], s_trg2[i:i+1,:])
-    if count > 1:
+     if count > 1:
         loss_NPMI /= count
 
-    if loss_NPMI == 0:
-        loss = loss_adv + args.lambda_sty * loss_sty \
-               - args.lambda_ds * loss_ds + args.lambda_cyc * loss_cyc + loss_ms
-        return loss, Munch(adv=loss_adv.item(),
-                           sty=loss_sty.item(),
-                           ds=loss_ds.item(),
-                           MS=loss_ms.item(),
-                           cyc=loss_cyc.item())
-    else:
-        loss = loss_adv + args.lambda_sty * loss_sty \
-            - args.lambda_ds * loss_ds + args.lambda_cyc * loss_cyc + args.lambda_NPMI * loss_NPMI + loss_ms
+     loss = loss_adv + args.lambda_sty * loss_sty \
+        - args.lambda_ds * loss_ds + args.lambda_cyc * loss_cyc + args.lambda_NPMI * loss_NPMI + loss_ms
 
-        return loss, Munch(adv=loss_adv.item(),
-                           sty=loss_sty.item(),
-                           ds=loss_ds.item(),
-                           cyc=loss_cyc.item(),
-                           MS=loss_ms.item(),
-                           MI=loss_NPMI.item())
+     return loss, Munch(adv=loss_adv.item(),
+                        sty=loss_sty.item(),
+                        ds=loss_ds.item(),
+                        cyc=loss_cyc.item(),
+                        MS=loss_ms.item(),
+                        MI=loss_NPMI.item())
 
 def compute_joint(x_out, x_tf_out):
 
