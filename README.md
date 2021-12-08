@@ -3,7 +3,7 @@
 
 On this repository, SRIT's code and instructions for I2I translation are explained.
 
-[Appedix]()
+[[Appedix]]()
 
 [Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334), [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
 
