@@ -1,4 +1,4 @@
-# Pytorch Implementation - SRIT
+# [Official] Pytorch Implementation - SRIT
 
 On this repository, SRIT's code and instructions for I2I translation are explained.
 
