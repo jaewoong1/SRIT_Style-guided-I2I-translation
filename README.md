@@ -1,6 +1,6 @@
 # Official Pytorch Implementation - SRIT
 
-> Official project for the paper : [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
+> Official code for the paper : [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
 
 Appendix can be found here [[Appedix]]()
 
