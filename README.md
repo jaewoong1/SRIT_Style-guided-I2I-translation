@@ -1,9 +1,7 @@
 # [Official] Pytorch Implementation - SRIT
 > AAAI 2022 accepted!
-
-On this repository, SRIT's code and instructions for I2I translation are explained.
-
-[[PDF]] [[Appedix]]()
+This repository includes the official project for the paper: [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
+Appendix can be found here [[Appedix]]()
 
 [Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334), [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
 
