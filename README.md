@@ -8,9 +8,9 @@ Authors : [Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://gi
 
 ![iccv_fig1](https://user-images.githubusercontent.com/54341727/133568248-d9d83417-cd6b-404d-a408-50254940c3c4.png)
 
+
 ## Abstract
 Recently,  various  image-to-image  translation  (I2I)  methodshave  improved  mode  diversity  and  visual  quality  in  termsof  neural  networks  or  regularization  terms.  However,  con-ventional  I2I  methods  relies  on  a  static  decision  boundaryand  the  encoded  representations  in  those  methods  are  en-tangled with each other, so they often face with ‘mode col-lapse’ phenomenon. To mitigate mode collapse, 1) we designa so-called style-guided discriminator that guides an input im-age to the target image style based on the strategy of flexi-ble decision boundary. 2) Also, we make the encoded repre-sentations include independent domain attributes. Based ontwo  ideas,  this  paper  proposes  Style-Guided  and  Disentan-gled Representation for Robust Image-to-Image Translation(SRIT). SRIT showed outstanding FID by 8%, 22.8%, and 10.1%  for  CelebA-HQ,  AFHQ,  and  Yosemite  datasets,  re-spectively. The translated images of SRIT reflect the stylesof target domain successfully. This indicates that SRIT showsbetter mode diversity than previous works.
-
 
 
 ![decision](https://user-images.githubusercontent.com/54341727/144345313-60725a60-94b5-4f69-8a30-b6916a08e11a.png)
