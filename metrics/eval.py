@@ -13,7 +13,7 @@ from core import utils
 
 
 @torch.no_grad()
-def calculate_metrics(nets_d, nets, args, step, mode):
+def calculate_metrics(nets, args, step, mode):
     print('Calculating evaluation metrics...')
     assert mode in ['latent', 'reference']
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
