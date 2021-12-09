@@ -193,6 +193,7 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
     out2 = nets.discriminator(x_fake, y_trg)
 
     if args.SGD == 1:
+        count = 0 
         r1 = r2 = r3 = r4 = 0
         if z_trg is not None:
             out = nets.discriminator(x_real, y_org)
@@ -201,15 +202,15 @@ def compute_d_loss(nets, args, x_real, y_org, y_trg, z_trg=None, x_ref=None, mas
         else:
             out3 = nets.discriminator(x_ref, y_trg)
             for i in range(args.batch_size):
+                count += 1
                 r1 += adv_loss(out3[i:i+1]-out2[i:i+1], 1)
                 r3 += adv_loss(out[i:i + 1] - out2[i:i + 1], 1)
                 r2 += adv_loss(out2[i:i+1]-out3[i:i+1], 0)
                 r4 += adv_loss(out2[i:i + 1] - out[i:i + 1], 0)
-
-            r1 /= args.batch_size
-            r2 /= args.batch_size
-            
+       
             if r1 != 0:
+                r1 /= count
+                r2 /= count
                 loss_real = r1 + r3
                 loss_fake = r2 + r4
             else:
