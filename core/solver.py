@@ -274,13 +274,13 @@ def compute_g_loss(nets, args, x_real, y_org, y_trg, z_trgs=None, x_refs=None, m
         if y_trg[i] != 2:
             count += 1
             loss_NPMI += mutual_info(s_trg[i:i+1,:], s_trg2[i:i+1,:])
-     if count > 1:
+    if count > 1:
         loss_NPMI /= count
 
-     loss = loss_adv + args.lambda_sty * loss_sty \
+    loss = loss_adv + args.lambda_sty * loss_sty \
         - args.lambda_ds * loss_ds + args.lambda_cyc * loss_cyc + args.lambda_NPMI * loss_NPMI + loss_ms
 
-     return loss, Munch(adv=loss_adv.item(),
+    return loss, Munch(adv=loss_adv.item(),
                         sty=loss_sty.item(),
                         ds=loss_ds.item(),
                         cyc=loss_cyc.item(),
@@ -340,4 +340,3 @@ def reg(d_out, x_in):
     assert(grad_dout2.size() == x_in.size())
     reg = 0.5 * grad_dout2.view(batch_size, -1).sum(1).mean(0)
     return reg
-
