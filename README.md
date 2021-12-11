@@ -39,7 +39,7 @@ pip install tqdm
 ## Training dataset
 Put dataset folder in the following location. `./data/`
 
->Click to download [CelebA-HQ](www.dropbox.com/s/f7pvjij2xlpff59/celeba_hq.zip?dl=0) [1]
+>Click to download [CelebA-HQ](https://drive.google.com/drive/folders/0B4qLcYyJmiz0TXY1NG02bzZVRGs?resourcekey=0-arAVTUfW9KRhN-irJchVKQ) [1]
 
 >Click to download [AFHQ](https://www.dropbox.com/s/t9l9o3vsx2jai3z/afhq.zip?dl=0) [2]
 
