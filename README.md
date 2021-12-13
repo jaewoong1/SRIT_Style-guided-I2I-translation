@@ -2,7 +2,7 @@
 
 > Official code for the paper : [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
 
-Appendix can be found here [[Appedix]]()
+Appendix can be found here [[Appedix]](https://drive.google.com/file/d/1Vl-MBJEe3bsSWRGsM6O85AtPG2L0N5zs/view?usp=sharing)
 
 Authors : [Jaewoong Choi](https://github.com/jaewoong1),  [Daeha Kim](https://github.com/kdhht2334), [Byung Cheol Song](https://scholar.google.com/citations?user=yo-cOtMAAAAJ&hl=ko&oi=sra)
 
