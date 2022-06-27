@@ -1,4 +1,4 @@
-# Official Pytorch Implementation - SRIT
+# Official Pytorch Implementation - SRIT (AAAI 2022)
 
 > Official code for the paper : [Style-Guided and Disentangled Representation for Robust Image-to-Image translation]()
 
